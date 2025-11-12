@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Picverse - Submission</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dim-color">
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-logo">
+                    <a href="HomePage.html">
+                        <img class="logo-btn" src="assets/logo.png" alt="Picverse Logo" width="40" height="40">
+                    </a>
+                    <a href="HomePage.html" class="navbar-slogan">
+                        <h3>Creativity Thrives, <br>Artists Connect</h3>
+                    </a>
+                </div>
+    
+                <button class="mobile-menu-button" id="mobileMenuButton">
+                    <span class="menu-icon"></span>
+                </button>
+
+                <div class="navbar-links" id="navbarLinks">
+                    <a href="HomePage.html">Home</a>
+                    <a href="AboutUs.html">About Us</a>
+                    <a href="CommunityPage.html">Community</a>
+                    <a href="GalleryPage.html">Gallery</a>
+                    <a href="SubmissionPage.html" class="active">Submission</a>
+                </div>
+    
+                <div class="profile-container">
+                    <div class="profile-icon" id="profileIcon">
+                        <img src="assets/persona1.jpg" alt="Profile">
+                    </div>
+                    <div class="profile-popup" id="profilePopup">
+                        <button class="followers-button" id="followersButton">Followers: 1.2k</button>
+                        <button class="recent-button" id="recentButton">Forum created recently</button>
+                        <button class="comment-button" id="commentButton">Comments from your posts</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+  <div class="submission-container">
+    <div class="submission-form-container">
+        <div class="submission-title">
+            <h1>Submission <span>Form</span></h1>
+        </div>
+        <form id="submissionForm">
+            <div class="form-status">
+                <p>Please complete all required fields to enable the submit button</p>
+            </div>
+        <div class="form-group">
+            <label for="email" class="form-label">Email: <span class="required">*</span></label>
+            <input type="text" id="email" class="form-input" />
+            <p id="emailError" class="error-message"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="title" class="form-label">Title: <span class="required">*</span></label>
+            <input type="text" id="title" class="form-input" />
+            <p id="titleError" class="error-message"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="form-label">Description: <span class="required">*</span></label>
+            <textarea id="description" rows="4" class="form-textarea"></textarea>
+            <span id="charCount">0</span>/500 characters
+            <p id="descriptionError" class="error-message"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="tagSelect" class="form-label">Select Tags (max 5): <span class="required">*</span></label>
+            <select id="tagSelect" class="form-input">
+                <option value="">Select a tag...</option>
+                <option value="Persona">Persona</option>
+                <option value="Building">Building</option>
+                <option value="Food">Food</option>
+                <option value="Nature">Nature</option>
+                <option value="Cars">Cars</option>
+            </select>
+            <div id="tagsContainer" class="tags-container"></div>
+            <input type="hidden" id="tags" />
+            <p id="tagsError" class="error-message"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="fileUpload" class="form-label">Upload File: <span class="required">*</span></label>
+            <input type="file" id="fileUpload" accept="image/*" class="form-file" />
+            <div id="fileInfo" class="file-info"></div>
+            <a id="filePreview" class="file-preview" target="_blank" style="display:none;">Preview Image</a>
+            <p id="fileError" class="error-message"></p>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Is this AI-generated art? <span class="required">*</span></label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="artTypeAI" name="artType" value="ai">
+                    <label for="artTypeAI">Yes, this is AI-generated</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="artTypeHuman" name="artType" value="human">
+                    <label for="artTypeHuman">No, this is human-made</label>
+                </div>
+            </div>
+            <p id="artTypeError" class="error-message"></p>
+        </div>
+
+        <div class="form-submit">
+            <button type="submit" id="submitButton" class="submit-button disabled">Submit</button>
+            <div id="successMessage" class="success-message" style="display:none;">Form submitted successfully.</div>
+        </div>
+
+        </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

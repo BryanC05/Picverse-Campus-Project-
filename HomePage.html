@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picverse - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="HomePage.html">
+                    <img class="logo-btn" src="assets/logo.png" alt="Picverse Logo" width="40" height="40">
+                </a>
+                <a href="HomePage.html" class="navbar-slogan">
+                    <h3>Creativity Thrives, <br>Artists Connect</h3>
+                </a>
+            </div>
+
+            <button class="mobile-menu-button" id="mobileMenuButton">
+                <span class="menu-icon"></span>
+            </button>
+
+            <div class="navbar-links" id="navbarLinks">
+                <a href="HomePage.html" class="active">Home</a>
+                <a href="AboutUs.html">About Us</a>
+                <a href="CommunityPage.html">Community</a>
+                <a href="GalleryPage.html">Gallery</a>
+                <a href="SubmissionPage.html">Submission</a>
+            </div>
+
+            <div class="profile-container">
+                <div class="profile-icon" id="profileIcon">
+                    <img src="assets/persona1.jpg" alt="Profile">
+                </div>
+                <div class="profile-popup" id="profilePopup">
+                    <button class="followers-button" id="followersButton">Followers: 1.2k</button>
+                    <button class="recent-button" id="recentButton">Forum created recently</button>
+                    <button class="comment-button" id="commentButton">Comments from your posts</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-slideshow">
+        <div class="slides-container" id="mainSlides">
+        </div>
+
+        <div class="dots-container" id="mainDots">
+        </div>
+    </div>
+
+    <div class="mini-slideshow-container">
+        <div class="mini-slideshow">
+            <div class="mini-slides-container" id="miniSlides">
+            </div>
+        </div>
+
+        <div class="mini-dots-container" id="miniDots">
+        </div>
+    </div>
+
+    <div class="trending-tags">
+        <h2 class="outlined-text">Trending Tags</h2>
+        <ul class="tags-list">
+            <li class="outlined-text">#Building</li>
+            <li class="outlined-text">#Game</li>
+            <li class="outlined-text">#Food</li>
+            <li class="outlined-text">#Nature</li>
+            <li class="outlined-text">#Watercolor</li>
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
