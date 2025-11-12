@@ -118,26 +118,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const navbar = document.querySelector(".navbar");
 
   function initializeMobileMenu() {
-    // Get references to the mobile menu button and navbar links
     const mobileMenuButton = document.getElementById("mobileMenuButton");
     const navbarLinks = document.getElementById("navbarLinks");
 
-    // If either element is not found, exit the function
     if (!mobileMenuButton || !navbarLinks) return;
 
-    // Initialize the menu open state
     let isMenuOpen = false;
 
-    // Function to toggle the menu open/close state
     function toggleMenu(show) {
-        // Determine the new state based on the parameter or toggle the current state
         isMenuOpen = show !== undefined ? show : !isMenuOpen;
-        // Update the button and links classes based on the new state
         mobileMenuButton.classList.toggle("active", isMenuOpen);
         navbarLinks.classList.toggle("active", isMenuOpen);
         navbarLinks.classList.toggle("slide-in", isMenuOpen);
         
-        // If the menu is closing, also close any open profile popups
         if (!isMenuOpen) {
             const profilePopup = document.getElementById("profilePopup");
             if (profilePopup) {
@@ -146,34 +139,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Add event listener to toggle menu on button click
     mobileMenuButton.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent event from bubbling up
-        toggleMenu(); // Toggle the menu state
+        e.stopPropagation();
+        toggleMenu();
     });
 
-    // Add event listener to close menu when clicking outside
     document.addEventListener("click", (e) => {
         if (isMenuOpen && !mobileMenuButton.contains(e.target) && !navbarLinks.contains(e.target)) {
-            toggleMenu(false); // Close the menu
+            toggleMenu(false);
         }
     });
 
-    // Add event listener to close menu when pressing the Escape key
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && isMenuOpen) {
-            toggleMenu(false); // Close the menu
+            toggleMenu(false);
         }
     });
 
-    // Add event listener to close menu when window is resized above mobile breakpoint
     window.addEventListener("resize", () => {
         if (window.innerWidth > 768 && isMenuOpen) {
-            toggleMenu(false); // Close the menu
+            toggleMenu(false);
         }
     });
 
-    // Highlight the current page link in the navbar
     const currentPage = window.location.pathname.split("/").pop() || "HomePage.html";
     const links = navbarLinks.querySelectorAll("a");
     links.forEach(link => {
@@ -181,10 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
             link.classList.add("active");
         }
         
-        // Close the menu after navigation on mobile
         link.addEventListener("click", () => {
             if (window.innerWidth <= 768) {
-                toggleMenu(false); // Close the menu
+                toggleMenu(false);
             }
         });
     });
@@ -193,17 +180,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeMobileMenu();
 
   function initializeProfilePopups() {
-    // Get references to the profile icon and popup elements
     const profileIcon = document.getElementById("profileIcon");
     const profilePopup = document.getElementById("profilePopup");
     const followersButton = document.getElementById("followersButton");
     const recentButton = document.getElementById("recentButton");
     const commentButton = document.getElementById("commentButton");
 
-    // Exit if essential elements are not found
     if (!profileIcon || !profilePopup) return;
 
-    // Create popup content dynamically if it doesn't exist
     if (!document.getElementById("followersPopup")) {
         const popupHTML = `
             <div class="popup-content" id="followersPopup">
@@ -219,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
         profilePopup.insertAdjacentHTML('afterend', popupHTML);
     }
 
-    // Collect all popup elements for easy management
     const allPopups = [
         profilePopup,
         document.getElementById("followersPopup"),
@@ -227,38 +210,33 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("commentPopup")
     ];
 
-    // Function to close all popups
     function closeAllPopups() {
         allPopups.forEach(popup => {
             if (popup) popup.classList.remove("active");
         });
     }
 
-    // Toggle profile popup on icon click
     profileIcon.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent event from bubbling up
+        e.stopPropagation();
         const isActive = profilePopup.classList.contains("active");
-        closeAllPopups(); // Close all popups first
+        closeAllPopups();
         if (!isActive) {
-            profilePopup.classList.add("active"); // Open profile popup if it was not active
+            profilePopup.classList.add("active");
         }
     });
 
-    // Pair buttons with their respective popups
     const buttonPopupPairs = [
         { button: followersButton, popup: document.getElementById("followersPopup") },
         { button: recentButton, popup: document.getElementById("recentPopup") },
         { button: commentButton, popup: document.getElementById("commentPopup") }
     ];
 
-    // Toggle specific popups on button click
     buttonPopupPairs.forEach(({ button, popup }) => {
         if (button && popup) {
             button.addEventListener("click", (e) => {
-                e.stopPropagation(); // Prevent event from bubbling up
+                e.stopPropagation();
                 const isActive = popup.classList.contains("active");
                 
-                // Close other popups but keep profile popup open
                 allPopups.forEach(p => {
                     if (p !== profilePopup && p !== popup) {
                         p.classList.remove("active");
@@ -269,15 +247,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (!profilePopup.classList.contains("active")) {
                         profilePopup.classList.add("active");
                     }
-                    popup.classList.add("active"); // Open the specific popup
+                    popup.classList.add("active");
                 } else {
-                    popup.classList.remove("active"); // Close the specific popup
+                    popup.classList.remove("active");
                 }
             });
         }
     });
 
-    // Close popups when clicking outside
     document.addEventListener("click", (e) => {
         const isClickInsidePopup = allPopups.some(popup => 
             popup && (popup.contains(e.target) || e.target === popup)
@@ -288,25 +265,23 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         if (!isClickInsidePopup && !isClickOnProfileIcon && !isClickOnButton) {
-            closeAllPopups(); // Close all popups
+            closeAllPopups();
         }
     });
 
-    // Close popups on escape key press
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
-            closeAllPopups(); // Close all popups
+            closeAllPopups();
         }
     });
 
-    // Adjust popup position on window resize
     window.addEventListener("resize", () => {
         if (window.innerWidth <= 480) {
             allPopups.forEach(popup => {
                 if (popup && popup.classList.contains("active")) {
                     const rect = popup.getBoundingClientRect();
                     if (rect.right > window.innerWidth) {
-                        popup.style.right = "0"; // Ensure popup is within viewport
+                        popup.style.right = "0";
                     }
                 }
             });
@@ -607,23 +582,17 @@ function initializeMiniSlideshow() {
 }
 
 function initializeTagsInput() {
-    // Get references to the tag select element, container for displaying tags, hidden input for storing tags, and error message element
     const tagSelect = document.getElementById("tagSelect");
     const tagsContainer = document.getElementById("tagsContainer");
     const tagsHiddenInput = document.getElementById("tags");
     const tagsError = document.getElementById("tagsError");
 
-    // Exit if essential elements are not found
-    if (!tagSelect || !tagsContainer || !tagsHiddenInput) return null;
+\    if (!tagSelect || !tagsContainer || !tagsHiddenInput) return null;
 
-    // Set to store selected tags
     const selectedTags = new Set();
 
-    // Function to update the displayed tags and hidden input value
     function updateTags() {
-        // Clear the current tags display
         tagsContainer.innerHTML = "";
-        // Create a span element for each selected tag
         selectedTags.forEach(tag => {
             const tagElement = document.createElement("span");
             tagElement.className = "tag";
@@ -631,16 +600,13 @@ function initializeTagsInput() {
             tagsContainer.appendChild(tagElement);
         });
 
-        // Update the hidden input value with the selected tags
         tagsHiddenInput.value = Array.from(selectedTags).join(",");
         
-        // Reset the select element
         tagSelect.value = "";
         
-        return validateTags(); // Validate the current tags
+        return validateTags();
     }
 
-    // Function to validate the number of selected tags
     function validateTags() {
         if (selectedTags.size > 5) {
             if (tagsError) {
@@ -662,7 +628,6 @@ function initializeTagsInput() {
         }
     }
 
-    // Handle tag selection from the dropdown
     tagSelect.addEventListener("change", function() {
         const selectedTag = this.value;
         if (selectedTag && !selectedTags.has(selectedTag)) {
@@ -672,19 +637,18 @@ function initializeTagsInput() {
                 this.value = "";
                 return;
             }
-            selectedTags.add(selectedTag); // Add the new tag to the set
-            updateTags(); // Update the display and validation
-            checkFormValidity(); // Check overall form validity
+            selectedTags.add(selectedTag);
+            updateTags();
+            checkFormValidity();
         }
     });
 
-    // Handle tag removal when the close button is clicked
     tagsContainer.addEventListener("click", (e) => {
         if (e.target.classList.contains("tag-close")) {
             const tagToRemove = e.target.getAttribute("data-tag");
-            selectedTags.delete(tagToRemove); // Remove the tag from the set
-            updateTags(); // Update the display and validation
-            checkFormValidity(); // Check overall form validity
+            selectedTags.delete(tagToRemove);
+            updateTags();
+            checkFormValidity();
         }
     });
 
@@ -692,8 +656,8 @@ function initializeTagsInput() {
         validate: validateTags,
         getTags: () => Array.from(selectedTags),
         reset: () => {
-            selectedTags.clear(); // Clear all selected tags
-            updateTags(); // Update the display and validation
+            selectedTags.clear();
+            updateTags();
         }
     };
 }
@@ -770,7 +734,7 @@ function validateFileUpload(file) {
   const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
   if (!allowedTypes.includes(file.type)) return false;
   
-  const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+  const maxSize = 10 * 1024 * 1024;
   if (file.size > maxSize) return false;
   
   return true;
@@ -805,17 +769,14 @@ function initializeFormValidation() {
         artType: document.getElementById("artTypeError")
     };
 
-    // Preview elements
     const previewElements = {
         fileInfo: document.getElementById("fileInfo"),
         filePreview: document.getElementById("filePreview")
     };
 
-    // Initialize form components
     const tagsInput = initializeTagsInput();
     initializeCharacterCounter();
 
-    // Helper function to update field validation state
     function updateFieldValidation(field, errorElement, isValid, errorMessage) {
         if (field) {
             field.classList.toggle("error", !isValid);
@@ -915,7 +876,6 @@ function initializeFormValidation() {
         return isValid;
     }
 
-    // Main form validation function
     function checkFormValidity() {
         const validationResults = {
             email: validateEmailField(),
@@ -940,7 +900,6 @@ function initializeFormValidation() {
         return isValid;
     }
 
-    // Event listeners for real-time validation
     if (formElements.email) {
         formElements.email.addEventListener("input", () => checkFormValidity());
         formElements.email.addEventListener("blur", () => checkFormValidity());
@@ -967,7 +926,6 @@ function initializeFormValidation() {
         radio.addEventListener("change", () => checkFormValidity());
     });
 
-    // Form submission handler
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -989,7 +947,6 @@ function initializeFormValidation() {
                 formElements.successMessage.style.display = "block";
             }
 
-            // Reset form after successful submission
             setTimeout(() => {
                 form.reset();
                 if (previewElements.fileInfo) previewElements.fileInfo.textContent = "";
@@ -1004,11 +961,9 @@ function initializeFormValidation() {
         }
     });
 
-    // Initialize form validation state
     checkFormValidity();
 }
 
-// Helper function for file upload preview
 function handleFileUpload(fileInput, fileInfo, filePreview) {
     if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
         if (fileInfo) fileInfo.textContent = "";
